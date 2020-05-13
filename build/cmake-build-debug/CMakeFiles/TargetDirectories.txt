@@ -1,0 +1,4 @@
+/Users/ba/Documents/C++/labs/ode_solver/cmake-build-debug/CMakeFiles/ode_solver.dir
+/Users/ba/Documents/C++/labs/ode_solver/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/ba/Documents/C++/labs/ode_solver/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ba/Documents/C++/labs/ode_solver/cmake-build-debug/CMakeFiles/BoostTest.dir
