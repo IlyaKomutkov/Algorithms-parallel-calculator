@@ -1,55 +1,41 @@
-#include "linalg.hpp"
+#include "Algorithm.hpp"
 #include "LVOde.hpp"
-#include "ODE.hpp"
-#include "RK.hpp"
 
-#include "testing.hpp"
-#include "RKIntegrator_test.hpp"
+#include <memory>
+#include <cstring>
 
-#define TEST_MODE   0	// define True to test library "linalg.hpp"  
-#define SOLVE_LVODE 0	// define True to find LVOde solutions with RK-methods  
-#define SOLVE_ODE   0	// define True to find Three-body ODE solutios with RK-methods
-
+void runAlgorithm(std::shared_ptr<Algorithm> alg){
+	alg->start("test.csv");
+}
 
 int main(){
 
-	#if TEST_MODE 
-	
-		TestingSystem testingSystem;
-		testingSystem.testVector();
-		testingSystem.testMatrix();
+	LVOde lvode(1, 1.5, 2, 1.5);// define L-V system
 
-	#elif SOLVE_LVODE
+	// define RK6(5)8S method
+	RKMethod method(
+		"matrixA.csv", 
+		{0, 0.25, 0.3, 0.8571428571, 0.6, 0.8, 1, 1},
+		{0.08950617284, 0, 0.4612671279, -0.6650443178, -0.06430041152, 1.0416666667, 0.0119047619, 0.125},
+		{0.09449074074, 0, 0.4262108262, -0.0513034188, 0.1018518519, 0.36875, 0.06, 0}
+	);
 
-		testMethodA();
-		testMethodB();
-		mytestMethodA();
+	// define our Integrator for lvode and certain method
+	RKIntegrator<LVOde> rkIntegrator(&lvode, &method);
 
-	#elif SOLVE_ODE 
+	long double h = 0.005;// lenght of step
+	size_t n = 10 / h;	 // number of steps
 
-		testMethodAForODE();
-		testMethodBForODE();
-		calculateErrorA();
-		calculateErrorB();
+	auto algorithm1 = RKAlgorithm<LVOde>(rkIntegrator, 0, {1, 1}, h, n);
+	auto algorithm2 = KNNAlgorithm();
 
-	#endif
+	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
 
-		LVOde lvode(1, 1.5, 2, 3);
-		// define RK6(5)8S method
-		RKMethod method(
-			"matrixA.csv", 
-			{0, 0.25, 0.3, 0.8571428571, 0.6, 0.8, 1, 1},
-			{0.08950617284, 0, 0.4612671279, -0.6650443178, -0.06430041152, 1.0416666667, 0.0119047619, 0.125},
-			{0.09449074074, 0, 0.4262108262, -0.0513034188, 0.1018518519, 0.36875, 0.06, 0}
-		);
+	int i = 0;
+	for (const auto algorithm : algorithms) {
+		algorithm->start("test" +  std::to_string(i) + ".csv");
+	}
 
-		RKIntegrator<LVOde> integrator(&lvode, &method);
-		long double h = 0.001;
-		size_t n = 10000 / h;
 
-		Matrix<long double> res = integrator.nSteps(0, {1, 1}, h, n);
-		res.toCsv("resMatrix.csv");
-
-		std::cout << "The end of the program!" << std::endl;
-		return 0;
+	return 0;
 }
