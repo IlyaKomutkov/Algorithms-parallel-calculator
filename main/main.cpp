@@ -14,7 +14,7 @@
 int main(){
 
 	#if TEST_MODE 
-
+	
 		TestingSystem testingSystem;
 		testingSystem.testVector();
 		testingSystem.testMatrix();
