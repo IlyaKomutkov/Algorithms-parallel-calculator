@@ -149,3 +149,53 @@ void calculateErrorB(){
 	Matrix<long double> error = main - subs;
 	error.toCsv("methodB_error.csv");
 }
+
+void testMethodCForTwoBodiesODE() {
+	TwoBodiesODE ode;
+
+	// define   RK5(4)7FC from Dormand and Prince method
+	RKMethod method(
+		"matrixC.csv",
+		{ 0, 0.2, 0.3, 0.46153846153846153846, 0.66666666666666666666666667, 1, 1 },
+		{ 0.08101851851851851, 0, 0.58407201264344, -0.3373133975812547, 0.5752840909090909, 0.0969387755102, 0 },
+		{ 0.10185185185185, 0, 0.429464715179, 0.103788737717309, 0.46022727272727272727272727, 0.087244897959183673469, 0.025 }
+	);
+
+	// define our Integrator with TwoBodiesode and method
+	RKIntegrator<TwoBodiesODE> rkIntegrator(&ode, &method);
+	long double h = 100;// step
+	size_t n = 1000;	 // number of steps
+	std::valarray<long double> s0{ 6871, 0, 0, 0,
+								(7.616556585247121 + 10.771437621438588) / 2, 0 };
+
+	Matrix<long double> res = rkIntegrator.nSteps(0, s0, h, n);
+	res.toCsv("TwoBodiesODE_solution_methodC_Bmain.csv");
+
+	res = rkIntegrator.nSteps(0, s0, h, n, 0);
+	res.toCsv("TwoBodiesODE_solution_methodC_Bsubs.csv");
+}
+
+void testMethodDForTwoBodiesODE() {
+	TwoBodiesODE ode;
+
+	// define   Fehlberg's RK5(6)8 method
+	RKMethod method(
+		"matrixD.csv",
+		{ 0,0.166666666666666666666,0.26666666666666666,0.6666666666666666,0.8,1,0,1 },
+		{ 0.08072916666666666,0,0.39950284090909094,0.28125,0.16276041666666666,0.07575757575757576,0,0 },
+		{ 0.004971590909090909,0,0.39950284090909094,0.28125,0.16276041666666666,0,0.07575757575757576,0.07575757575757576 }
+	);
+
+	// define our Integrator with TwoBodiesode and method
+	RKIntegrator<TwoBodiesODE> rkIntegrator(&ode, &method);
+	long double h = 100;// step
+	size_t n = 1000;	 // number of steps
+	std::valarray<long double> s0{ 6871, 0, 0, 0,
+								(7.616556585247121 + 10.771437621438588) / 2, 0 };
+
+	Matrix<long double> res = rkIntegrator.nSteps(0, s0, h, n);
+	res.toCsv("TwoBodiesODE_solution_methodD_Bmain.csv");
+
+	res = rkIntegrator.nSteps(0, s0, h, n, 0);
+	res.toCsv("TwoBodiesODE_solution_methodD_Bsubs.csv");
+}

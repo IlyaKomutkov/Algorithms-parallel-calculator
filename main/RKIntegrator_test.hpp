@@ -21,7 +21,8 @@ void mytestMethodA();
 */
 void testMethodAForODE();
 void testMethodBForODE();
-
+void testMethodCForTwoBodiesODE();
+void testMethodDForTwoBodiesODE();
 
 /* 
 	calculate with 2 error matrixes for each method 
