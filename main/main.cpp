@@ -8,7 +8,7 @@ int main(){
 	TwoBodiesODE ode;
 	// define   RK5(4)7FC from Dormand and Prince method
 	RKMethod method(
-		"Butchers/matrixC.csv",
+		"RK/Butchers/matrixC.csv",
 		{ 0, 0.2, 0.3, 0.46153846153846153846, 0.66666666666666666666666667, 1, 1 },
 		{ 0.08101851851851851, 0, 0.58407201264344, -0.3373133975812547, 0.5752840909090909, 0.0969387755102, 0 },
 		{ 0.10185185185185, 0, 0.429464715179, 0.103788737717309, 0.46022727272727272727272727, 0.087244897959183673469, 0.025 }
@@ -28,7 +28,7 @@ int main(){
 
 	/* KMeans algorithm */
 
-	KMeans km(3, 0.1, {"datasets/allUsers.csv"});
+	KMeans km(3, 0.1, {"KMeans/datasets/allUsers.csv"});
 	km.start("test/test0.csv");
 
 	auto algorithm2 = KMeansAlgorithm(km);
