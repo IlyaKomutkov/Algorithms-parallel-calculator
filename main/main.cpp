@@ -1,6 +1,5 @@
 #include "Algorithm.hpp"
-
-
+//тут был я еабный хуй науй сука
 int main(){
 	std::valarray<long double> v {1, 2, 3};
 	v = v / 4;
