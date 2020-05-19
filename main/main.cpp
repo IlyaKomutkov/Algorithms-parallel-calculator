@@ -1,55 +1,52 @@
-#include "linalg.hpp"
-#include "LVOde.hpp"
-#include "ODE.hpp"
-#include "RK.hpp"
-
-#include "testing.hpp"
-#include "RKIntegrator_test.hpp"
-
-#define TEST_MODE   0	// define True to test library "linalg.hpp"  
-#define SOLVE_LVODE 0	// define True to find LVOde solutions with RK-methods  
-#define SOLVE_ODE   0	// define True to find Three-body ODE solutios with RK-methods
+#include "Algorithm.hpp"
 
 
 int main(){
 
-	#if TEST_MODE 
+    /* RKINtegrator algorithm */
 
-		TestingSystem testingSystem;
-		testingSystem.testVector();
-		testingSystem.testMatrix();
+	TwoBodiesODE ode;
+	// define   RK5(4)7FC from Dormand and Prince method
+	RKMethod method(
+		"Butchers/matrixC.csv",
+		{ 0, 0.2, 0.3, 0.46153846153846153846, 0.66666666666666666666666667, 1, 1 },
+		{ 0.08101851851851851, 0, 0.58407201264344, -0.3373133975812547, 0.5752840909090909, 0.0969387755102, 0 },
+		{ 0.10185185185185, 0, 0.429464715179, 0.103788737717309, 0.46022727272727272727272727, 0.087244897959183673469, 0.025 }
+	);
+	// define our Integrator with TwoBodiesode and method
+	RKIntegrator<TwoBodiesODE> rkIntegrator(&ode, &method);
+	long double h = 100;			// step
+	size_t n = 1000;	 			// number of steps
+	std::valarray<long double> s0	// s0 vector-condition
+	{ 6871, 0, 0, 0, (7.616556585247121 + 10.771437621438588) / 2, 0 };
 
-	#elif SOLVE_LVODE
 
-		testMethodA();
-		testMethodB();
-		mytestMethodA();
+	auto algorithm1 = RKAlgorithm<TwoBodiesODE>(rkIntegrator, 0, s0, h, n);
 
-	#elif SOLVE_ODE 
 
-		testMethodAForODE();
-		testMethodBForODE();
-		calculateErrorA();
-		calculateErrorB();
 
-	#endif
 
-		LVOde lvode(1, 1.5, 2, 3);
-		// define RK6(5)8S method
-		RKMethod method(
-			"matrixA.csv", 
-			{0, 0.25, 0.3, 0.8571428571, 0.6, 0.8, 1, 1},
-			{0.08950617284, 0, 0.4612671279, -0.6650443178, -0.06430041152, 1.0416666667, 0.0119047619, 0.125},
-			{0.09449074074, 0, 0.4262108262, -0.0513034188, 0.1018518519, 0.36875, 0.06, 0}
-		);
+	/* KMeans algorithm */
 
-		RKIntegrator<LVOde> integrator(&lvode, &method);
-		long double h = 0.001;
-		size_t n = 10000 / h;
+	KMeans km(3, 0.1, {"datasets/allUsers.csv"});
+	km.start("test/test0.csv");
 
-		Matrix<long double> res = integrator.nSteps(0, {1, 1}, h, n);
-		res.toCsv("resMatrix.csv");
+	auto algorithm2 = KMeansAlgorithm(km);
 
-		std::cout << "The end of the program!" << std::endl;
-		return 0;
+
+	//	//														// //
+//			//												//			//
+				//										//				//
+//					// //	//	//	//	//	//	//	//
+	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
+	int i = 0;
+	for (const auto algorithm : algorithms) {
+		algorithm->start("test/test" +  std::to_string(i++) + ".csv");
+		}			//	//	//	//	//	//	//	//	//	
+//				//										//				//
+//			//												//			//
+	//	//														// //
+
+
+	return 0;
 }

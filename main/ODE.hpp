@@ -1,7 +1,6 @@
 #pragma once 
 
-#include "linalg.hpp"
-
+#include "LVOde.hpp"
 
 
 class ODE{
@@ -11,5 +10,12 @@ public:
 	ODE(std::valarray<long double>);
 	// take time and vector-condition s0
 	// and return new vector-condition ds
+	std::valarray<long double> operator()(long double, std::valarray<long double>);
+};
+
+class TwoBodiesODE {
+private:
+	std::valarray<long double> gm = { 398600.0 };
+public:
 	std::valarray<long double> operator()(long double, std::valarray<long double>);
 };
