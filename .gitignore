@@ -34,4 +34,7 @@
 .idea
 
 
-boost.1.72.0.0
+boost
+*.db
+*.sqlite
+*.opendb
