@@ -1,10 +1,11 @@
 #pragma once
 
 #include "RK.hpp"
+#include "KMeans.hpp"
 
 class Algorithm {
 public:
-	virtual void start(std::string resultPATH) = 0;
+	virtual const void start(std::string resultPATH) = 0;
 	virtual ~Algorithm() = default;
 };
 
@@ -27,17 +28,20 @@ public:
 				long double h, size_t n, bool bMain = 1) : 
 	rkIntegrator_(rkIntegrator), t0_(t0), h_(h), s0_(s0), n_(n), bMain_(bMain) {};
 
-	void start(std::string resultPATH) override{
+	void const start(std::string resultPATH)  override{
 		Matrix<long double> result = rkIntegrator_.nSteps(t0_, s0_, h_, n_);
 		result.toCsv(resultPATH);
 	}
 };
 
 
-class KNNAlgorithm : public Algorithm{
+class KMeansAlgorithm : public Algorithm{
+private:
+	KMeans kmalg_;
 public:
-	void start(std::string resultPATH) override{
-		std::cout << 1 << std::endl;
+	KMeansAlgorithm(KMeans kmalg) : kmalg_(kmalg){};
+	void const start(std::string resultPATH) override{
+		kmalg_.start(resultPATH);
 	}
 };
 

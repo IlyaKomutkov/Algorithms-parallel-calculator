@@ -11,6 +11,7 @@
 #include <valarray>
 #include <cassert>
 #include <cmath>
+#include <algorithm>
 
 // calculate scalar product of 2 "vectors"
 template <typename T>
@@ -58,7 +59,6 @@ std::ostream& operator<<(std::ostream& stream, const std::valarray<T>& vec){
 }
 
 
-
 // for STL vector
 template <typename T>
 void vecToCsv(std::vector<T> vec, std::string path){
@@ -81,5 +81,16 @@ std::ostream& operator<<(std::ostream& stream, const std::vector<T>& vec){
 		stream << ")" << std::endl;
   	}
   	return stream; 
+}
+
+
+template <typename T, typename A>
+int arg_max(std::vector<T, A> const& vec) {
+	return static_cast<int>(std::distance(vec.begin(), max_element(vec.begin(), vec.end())));
+}
+
+template <typename T, typename A>
+int arg_min(std::vector<T, A> const& vec) {
+	return static_cast<int>(std::distance(vec.begin(), min_element(vec.begin(), vec.end())));
 }
 

@@ -1,7 +1,6 @@
 #pragma once 
 
-#include "linalg.hpp"
-
+#include "LVOde.hpp"
 
 
 class ODE{
