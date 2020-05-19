@@ -35,3 +35,7 @@
 
 
 boost.1.72.0.0
+.vs/cpp_microproject_2020/v15/Browse.VC.opendb
+*.sqlite-journal
+*.sqlite
+*.db
