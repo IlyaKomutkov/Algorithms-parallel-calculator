@@ -151,7 +151,7 @@ void calculateErrorB(){
 }
 
 void testMethodCForTwoBodiesODE() {
-	TwoBodiesODE ode({ 398600.0 });
+	TwoBodiesODE ode;
 
 	// define   RK5(4)7FC from Dormand and Prince method
 	RKMethod method(
@@ -176,7 +176,7 @@ void testMethodCForTwoBodiesODE() {
 }
 
 void testMethodDForTwoBodiesODE() {
-	TwoBodiesODE ode({ 398600.0 });
+	TwoBodiesODE ode;
 
 	// define   Fehlberg's RK5(6)8 method
 	RKMethod method(
