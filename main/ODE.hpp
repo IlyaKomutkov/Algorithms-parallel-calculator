@@ -17,6 +17,5 @@ class TwoBodiesODE {
 private:
 	std::valarray<long double> gm;
 public:
-	TwoBodiesODE(std::valarray<long double>);
 	std::valarray<long double> operator()(long double, std::valarray<long double>);
 };
