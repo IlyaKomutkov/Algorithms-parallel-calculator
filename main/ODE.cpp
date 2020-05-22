@@ -2,10 +2,10 @@
 #include "RK.hpp"
 
 
-ODE::ODE(std::valarray<long double> GM) {gm = GM;}
+ThreeBodiesODE::ThreeBodiesODE(std::valarray<long double> GM) {gm = GM;}
 
 
-std::valarray<long double> ODE::operator()(long double t, std::valarray<long double> s0){
+std::valarray<long double> ThreeBodiesODE::operator()(long double t, std::valarray<long double> s0){
 
 	std::valarray<long double> ds(s0.size());
 
@@ -42,6 +42,8 @@ std::valarray<long double> ODE::operator()(long double t, std::valarray<long dou
 
    	return ds;
 }
+
+TwoBodiesODE::TwoBodiesODE(std::valarray<long double> GM) { gm = GM; }
 
 std::valarray<long double> TwoBodiesODE::operator()(long double t, std::valarray<long double> s0) {
 
