@@ -6,79 +6,81 @@
 #include <algorithm>
 #include <string>
 #include <thread>
+#include <iomanip>
 
 
 template <size_t N, class T>
-class Controller {
+class ThreadController {
 	/* This class is using for parallel calculations */
+
 	std::mutex mutex1, mutex2;
 	std::condition_variable done;
-	std::deque<T> que;
+	
+	std::vector<T> algVector;
 	std::deque<std::string> PATHS;
-
 	bool Finished[N];
 
-	//Initializing bool variables
-	void reset() {
-		for (bool& i : Finished) {
-			i = false;
-		}
-	}
 	//Make calculations in thread that got as parametr of function
-	void thread_task(size_t id){
-		while (true)
-		{
+	void threadTask(size_t id){
+
+		int count = 0;
+		while (true) {
 			std::unique_lock<std::mutex> lock(mutex1);
-			if (que.empty()) {
+			if (algVector.empty()) {
 				std::unique_lock<std::mutex> lock(mutex2);
 				Finished[id] = true;
-				done.notify_all(); //Unblocks all threads currently waiting for this condition
+				done.notify_all();
 				lock.unlock();
 				return;
 			}
-			int i = 0;
-			auto job = std::move(que.front()); //Elements are taken in turn(one by one) till deque is not empty 
-			que.pop_front();
 
-			std::string fileName = PATHS.front();
-			PATHS.pop_front();
+			auto algorithm = algVector.back();
+			algVector.pop_back();
 
+			std::string fileName = PATHS.back();
+			PATHS.pop_back();
+			
 			lock.unlock();
-
-			job->start(fileName);
+			algorithm->start(fileName);
 
 			// Method "start" starts calculations of i-th element of deque
-			// std::cout << "algorithm" << std::endl;
-			// std::cout << "Thread id: "<< std::this_thread::get_id() << std::endl;
-			// std::cout << fileName << std::endl << std::endl;
-			// i++;
-
+			
+			// change to iomanip
+			std::cout << std::endl << "|" << "\t\t" << std::this_thread::get_id() << "\t\t" << "|" \
+			<< "\t\t" << fileName << "\t\t" << "|" << std::endl;
 		}
+	}
+
+	void waitFinished() {
+		std::unique_lock<std::mutex> lock(mutex2);
+		done.wait(lock, [this] {
+			return std::all_of(Finished, Finished + N - 1, [](bool e) {return e;});
+		});
 	}
 
 public:
 	//Add object in queue
-	void push(const T job, const std::string path) {
-		std::unique_lock<std::mutex> lock(mutex1);
-		que.emplace_back(std::move(job));
-		PATHS.emplace_back(path);
+	ThreadController& push(T algorithm, const std::string path) {
+		// std::unique_lock<std::mutex> lock(mutex1);
+		algVector.push_back(algorithm);
+		PATHS.push_back(path);
+		return *this;
 	}
+
 	//Implementation of the algorithm
 	void start() {
-		reset();
-		for (size_t i = 0; i < N; i++) {
+
+		for (bool& i : Finished)
+			i = false;
+
+		for (size_t i = 0; i < N; ++i) {
 			std::thread worker([this, i]() {
-				thread_task(i); 
+				threadTask(i); 
 			});
 			worker.detach();
 		}
-	}
-	//Controlling the end of process
-	void wait_finished() {
-		std::unique_lock<std::mutex> lock(mutex2);
-		done.wait(lock, [this] {
-			return std::all_of(Finished, Finished + N - 1, [](bool e) {return e; });
-		});
+
+		this->waitFinished();
 	}
 };
 

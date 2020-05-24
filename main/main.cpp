@@ -29,23 +29,23 @@ int main(){
 
 	/* KMeans algorithm */
 
-	KMeans km(3, 0.1, {"datasets/allUsers.csv"});
-	km.start("test0.csv");
-	auto algorithm2 = KMeansAlgorithm(km);
+	KMeans km3(3, 0.1, {"datasets/allUsers.csv"});
+	KMeans km4(4, 0.1, {"datasets/allUsers.csv"});
+	KMeans km5(5, 0.1, {"datasets/allUsers.csv"});
+
+	auto algorithm2 = KMeansAlgorithm(km3);
+	auto algorithm3 = KMeansAlgorithm(km4);
+	auto algorithm4 = KMeansAlgorithm(km5);
 
 	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
 
-	Controller<1, Algorithm*> controller;
-	// Controller<1, Algorithm*> controller{}\
-	// 			.push(&algorithm1, "test/testRK.csv")\
-	// 			.push(&algorithm2, "test/testKM.csv")\
-	// 			.start()\
-	// 			.wait_finished();
+	ThreadController<2, Algorithm*> controller;
 
-	controller.push(&algorithm1, "test/testRK.csv");
-	controller.push(&algorithm2, "test/testKM.csv");
-	controller.start();
-	controller.wait_finished();
+	controller.push(&algorithm1, "test/test_1.csv")\
+				.push(&algorithm2, "test/test_2.csv")\
+			  	.push(&algorithm3, "test/test_3.csv")\
+				.push(&algorithm4, "test/test_4.csv")\
+				.start();
 
 	return 0;
 }
