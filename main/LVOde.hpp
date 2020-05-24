@@ -4,10 +4,11 @@
 
 class ODE {
 public:
-	virtual std::valarray<long double> operator()(long double t, std::valarray<long double> s) = 0;
+	virtual std::valarray<long double> operator()(long double t,\
+						std::valarray<long double> s) = 0;
 };
 
-class LVOde:public ODE{
+class LVOde : public ODE{
 private:
 	long double a, b, c, d;	// L-V constants
 public:
