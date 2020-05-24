@@ -29,27 +29,29 @@ class Controller {
 		while (true)
 		{
 			std::unique_lock<std::mutex> lock(mutex1);
-			if (que.empty())
-			{
+			if (que.empty()) {
 				std::unique_lock<std::mutex> lock(mutex2);
 				Finished[id] = true;
 				done.notify_all(); //Unblocks all threads currently waiting for this condition
+				lock.unlock();
 				return;
 			}
 			int i = 0;
 			auto job = std::move(que.front()); //Elements are taken in turn(one by one) till deque is not empty 
 			que.pop_front();
-			lock.unlock();
+
 			std::string fileName = PATHS.front();
 			PATHS.pop_front();
+
+			lock.unlock();
 
 			job->start(fileName);
 
 			// Method "start" starts calculations of i-th element of deque
-			std::cout << "algorithm" << std::endl;
-			std::cout << "Thread id: "<< std::this_thread::get_id() << std::endl;
-			std::cout << fileName << std::endl << std::endl;
-			i++;
+			// std::cout << "algorithm" << std::endl;
+			// std::cout << "Thread id: "<< std::this_thread::get_id() << std::endl;
+			// std::cout << fileName << std::endl << std::endl;
+			// i++;
 
 		}
 	}
