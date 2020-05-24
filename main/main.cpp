@@ -1,5 +1,5 @@
 #include "Algorithm.hpp"
-// #include "Controller.hpp"
+#include "Controller.hpp"
 // 
 // #include "ThreadTesting.hpp"
 
@@ -35,17 +35,17 @@ int main(){
 
 	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
 
-	// Controller<1, Algorithm*> controller;
-	// // Controller<1, Algorithm*> controller{}\
-	// // 			.push(&algorithm1, "test/testRK.csv")\
-	// // 			.push(&algorithm2, "test/testKM.csv")\
-	// // 			.start()\
-	// // 			.wait_finished();
+	Controller<1, Algorithm*> controller;
+	// Controller<1, Algorithm*> controller{}\
+	// 			.push(&algorithm1, "test/testRK.csv")\
+	// 			.push(&algorithm2, "test/testKM.csv")\
+	// 			.start()\
+	// 			.wait_finished();
 
-	// controller.push(&algorithm1, "test/testRK.csv");
-	// controller.push(&algorithm2, "test/testKM.csv");
-	// controller.start();
-	// controller.wait_finished();
+	controller.push(&algorithm1, "test/testRK.csv");
+	controller.push(&algorithm2, "test/testKM.csv");
+	controller.start();
+	controller.wait_finished();
 
 	return 0;
 }
