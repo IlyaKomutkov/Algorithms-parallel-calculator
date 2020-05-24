@@ -1,40 +1,42 @@
-#include"threadtesting.h"
+#include "ThreadTesting.hpp"
 
+#include 
 
+//All algoritms are paralelled for 2 threads
+void ThreadTesting::test2Threads(std::vector<Algorithm*> algorithms,\
+									std::vector<std::string> PATHS){
+	Controller<2, Algorithm*> pool;
 
-	void ThreadTesting::test2Threads(std::vector<Algorithm*> algorithms, std::vector<std::string>PATHS)//All algoritms are paralelled for 2 threads
-	{
-		Controller<2, Algorithm*>pool;
-
-		for (int i = 0; i < algorithms.size(); i++)
-		{
-			pool.push(algorithms[i], PATHS[i]);
-		}
-		pool.start();
-		pool.wait_finished();
-
+	for (int i = 0; i < algorithms.size(); i++){
+		pool.push(algorithms[i], PATHS[i]);
 	}
-	void ThreadTesting::test4Threads(std::vector<Algorithm*> algorithms, std::vector<std::string>PATHS)//All algoritms are paralelled for 4 threads
-	{
-		Controller<4, Algorithm*>pool;
+	pool.start();
+	pool.wait_finished();
 
-		for (int i = 0; i < algorithms.size(); i++)
-		{
-			pool.push(algorithms[i], PATHS[i]);
-		}
-		pool.start();
-		pool.wait_finished();
+}
 
+//All algoritms are paralelled for 4 threads
+void ThreadTesting::test4Threads(std::vector<Algorithm*> algorithms,\
+									std::vector<std::string>PATHS) {
+	Controller<4, Algorithm*> pool;
+
+	for (int i = 0; i < algorithms.size(); i++){
+		pool.push(algorithms[i], PATHS[i]);
 	}
-	void ThreadTesting::test8Threads(std::vector<Algorithm*> algorithms, std::vector<std::string>PATHS)//All algoritms are paralelled for  threads
-	{
-		Controller<8, Algorithm*>pool;
+	pool.start();
+	pool.wait_finished();
 
-		for (int i = 0; i < algorithms.size(); i++)
-		{
-			pool.push(algorithms[i], PATHS[i]);
-		}
-		pool.start();
-		pool.wait_finished();
+}
+
+//All algoritms are paralelled for  threads
+void ThreadTesting::test8Threads(std::vector<Algorithm*> algorithms,\
+								std::vector<std::string>PATHS) {
+	Controller<8, Algorithm*> pool;
+
+	for (int i = 0; i < algorithms.size(); i++) {
+		pool.push(algorithms[i], PATHS[i]);
+	}
+	pool.start();
+	pool.wait_finished();
 
 	}

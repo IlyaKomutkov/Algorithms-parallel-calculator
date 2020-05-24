@@ -1,5 +1,7 @@
 #include "Algorithm.hpp"
-
+// #include "Controller.hpp"
+// 
+// #include "ThreadTesting.hpp"
 
 int main(){
 
@@ -25,28 +27,25 @@ int main(){
 
 
 
-
 	/* KMeans algorithm */
 
 	KMeans km(3, 0.1, {"datasets/allUsers.csv"});
-	km.start("test/test0.csv");
-
+	km.start("test0.csv");
 	auto algorithm2 = KMeansAlgorithm(km);
 
-
-	//	//														// //
-//			//												//			//
-				//										//				//
-//					// //	//	//	//	//	//	//	//
 	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
-	int i = 0;
-	for (const auto algorithm : algorithms) {
-		algorithm->start("test/test" +  std::to_string(i++) + ".csv");
-		}			//	//	//	//	//	//	//	//	//	
-//				//										//				//
-//			//												//			//
-	//	//														// //
 
+	// Controller<1, Algorithm*> controller;
+	// // Controller<1, Algorithm*> controller{}\
+	// // 			.push(&algorithm1, "test/testRK.csv")\
+	// // 			.push(&algorithm2, "test/testKM.csv")\
+	// // 			.start()\
+	// // 			.wait_finished();
+
+	// controller.push(&algorithm1, "test/testRK.csv");
+	// controller.push(&algorithm2, "test/testKM.csv");
+	// controller.start();
+	// controller.wait_finished();
 
 	return 0;
 }
