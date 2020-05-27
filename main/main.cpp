@@ -50,7 +50,5 @@ int main(){
 				.push(&algorithm4, "test/test_4.csv")\
 				.start();
 
-	ThreadController<1, Algorithm*> controller;
-	controller.push(v).start();
 	return 0;
 }

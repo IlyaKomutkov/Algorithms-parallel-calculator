@@ -44,10 +44,14 @@ class ThreadController {
 			algorithm->start(fileName);
 
 			// Method "start" starts calculations of i-th element of deque
-			
+			std::string s2 = fileName;
+			std::cout.setf(std::ios::left);
 			// change to iomanip
-			std::cout << std::endl << "|" << "\t\t" << std::this_thread::get_id() << "\t\t" << "|" \
-			<< "\t\t" << fileName << "\t\t" << "|" << std::endl;
+			std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18) << ' ' << std::setw(24) << "Directory" << std::endl;
+			std::cout << "|" << std::setfill('-') << std::setw(61) << '-' << '|' << std::endl;
+			std::cout << '|' << std::setfill(' ') << std::setw(7) << ' ' << 
+				std::setw(13) << std::this_thread::get_id() << '|' <<
+				std::setw((40 - s2.size()) / 2) << ' ' << std::setw(40 - (40 - s2.size()) / 2) << s2 << '|' << std::endl;
 		}
 	}
 	void waitFinished() 
