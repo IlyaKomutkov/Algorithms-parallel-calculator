@@ -39,7 +39,7 @@ class ThreadController {
 
 			std::string fileName = PATHS.back();
 			PATHS.pop_back();
-			
+			 
 			lock.unlock();
 			algorithm->start(fileName);
 
@@ -50,22 +50,23 @@ class ThreadController {
 			<< "\t\t" << fileName << "\t\t" << "|" << std::endl;
 		}
 	}
-
-	void waitFinished() {
-		std::unique_lock<std::mutex> lock(mutex2);
-		done.wait(lock, [this] {
-			return std::all_of(Finished, Finished + N - 1, [](bool e) {return e;});
-		});
+	void waitFinished() 
+	{ 
+	std::unique_lock<std::mutex> lock(mutex2); 
+		done.wait(lock, [this] { 
+			return std::all_of(Finished, Finished + N, [](bool e) { return e; }); 
+	}); 
 	}
 
 public:
 	//Add object in queue
 	ThreadController& push(T algorithm, const std::string path) {
-		// std::unique_lock<std::mutex> lock(mutex1);
 		algVector.push_back(algorithm);
 		PATHS.push_back(path);
 		return *this;
 	}
+
+	
 
 	//Implementation of the algorithm
 	void start() {

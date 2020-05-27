@@ -36,8 +36,11 @@ int main(){
 	auto algorithm2 = KMeansAlgorithm(km3);
 	auto algorithm3 = KMeansAlgorithm(km4);
 	auto algorithm4 = KMeansAlgorithm(km5);
+	std::string f1 = "p";
+	std::string f2 = "p";
 
-	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
+	
+
 
 	ThreadController<2, Algorithm*> controller;
 
@@ -47,5 +50,7 @@ int main(){
 				.push(&algorithm4, "test/test_4.csv")\
 				.start();
 
+	ThreadController<1, Algorithm*> controller;
+	controller.push(v).start();
 	return 0;
 }
