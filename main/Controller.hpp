@@ -49,8 +49,8 @@ class ThreadController {
 			// change to iomanip
 			std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18) << ' ' << std::setw(24) << "Directory" << std::endl;
 			std::cout << "|" << std::setfill('-') << std::setw(61) << '-' << '|' << std::endl;
-			std::cout << '|' << std::setfill(' ') << std::setw(7) << ' ' << 
-				std::setw(13) << std::this_thread::get_id() << '|' <<
+			std::cout << '|' << std::setfill(' ') << std::setw(3) << ' ' << 
+				std::setw(17) << std::this_thread::get_id() << '|' <<
 				std::setw((40 - s2.size()) / 2) << ' ' << std::setw(40 - (40 - s2.size()) / 2) << s2 << '|' << std::endl;
 		}
 	}
