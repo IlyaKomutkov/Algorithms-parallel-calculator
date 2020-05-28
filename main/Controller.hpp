@@ -23,7 +23,7 @@ class ThreadController {
 	//Make calculations in thread that got as parametr of function
 	void threadTask(size_t id){
 
-		int count = 0;
+		
 		while (true) {
 			std::unique_lock<std::mutex> lock(mutex1);
 			if (algVector.empty()) {
@@ -47,20 +47,22 @@ class ThreadController {
 			std::string s2 = fileName;
 			std::cout.setf(std::ios::left);
 			// change to iomanip
-			std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18) << ' ' << std::setw(24) << "Directory" << std::endl;
+			
 			std::cout << "|" << std::setfill('-') << std::setw(61) << '-' << '|' << std::endl;
 			std::cout << '|' << std::setfill(' ') << std::setw(3) << ' ' << 
 				std::setw(17) << std::this_thread::get_id() << '|' <<
 				std::setw((40 - s2.size()) / 2) << ' ' << std::setw(40 - (40 - s2.size()) / 2) << s2 << '|' << std::endl;
 		}
 	}
-	void waitFinished() 
-	{ 
-	std::unique_lock<std::mutex> lock(mutex2); 
-		done.wait(lock, [this] { 
-			return std::all_of(Finished, Finished + N, [](bool e) { return e; }); 
-	}); 
-	}
+	
+
+		void waitFinished() 
+		{ 
+		std::unique_lock<std::mutex> lock(mutex2); 
+			done.wait(lock, [this] { 
+				return std::all_of(Finished, Finished + N, [](bool e) { return e; }); 
+		}); 
+		}
 
 public:
 	//Add object in queue
@@ -78,8 +80,7 @@ public:
 	}
 		//Add object in queue
 	ThreadController& push(std::vector<std::pair<T,std::string>>data) {
-		for(auto i: data)
-		{
+		for(auto i: data){
 			algVector.push_back(i.first);
 			PATHS.push_back(i.second);
 		}
@@ -89,19 +90,17 @@ public:
 			//Add object in queue
 	ThreadController& push(std::vector<T>algorithms,std::vector<std::string>filenames) {
 		for(auto i: algorithms)
-		{
 			algVector.push_back(i);
-		}
-
 		for(auto j: filenames)
-		{
 			PATHS.push_back(j);
-		}
 		return *this;
 	}
 
 	//Implementation of the algorithm
 	void start() {
+
+		std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18)\
+		 << ' ' << std::setw(24) << "Directory" << std::endl;
 
 		for (bool& i : Finished)
 			i = false;
@@ -115,6 +114,7 @@ public:
 
 		this->waitFinished();
 	}
+
 };
 
 

@@ -1,6 +1,6 @@
 #pragma once
-
-#include"Controller.hpp"
+#include "../Algorithm.hpp"
+#include"../Controller.hpp"
 
 
 class ThreadTesting {
@@ -16,3 +16,9 @@ public:
 						std::vector<std::string>PATHS);//All algoritms are paralelled for  threads
 
 }; 
+
+	void Test4Algorithms4Threads();
+
+	void Test2Algorithms4Threads();
+
+	void Test4Algorithms2Threads();
