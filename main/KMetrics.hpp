@@ -40,9 +40,9 @@ public:
 
 //Minkowski distance
 class MinkowskiDist : public Metrics {
-	double power_;
+	long double power_ = 1;
 public:
-	MinkowskiDist(double pow) : power_{ power_ } {}
+	MinkowskiDist(long double pow) : power_{ pow } { }
 	long double distance(std::valarray<long double> v1, std::valarray<long double> v2) override {
 		//std::cout << "MinkowskiDist" << std::endl;
 		long double s = 0;
