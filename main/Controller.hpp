@@ -63,46 +63,43 @@ class ThreadController {
 	}
 
 public:
-	//Add object in queue
+
+	//Add algorithm and path in queue
 	ThreadController& push(T algorithm, const std::string path) {
 		algVector.push_back(algorithm);
 		PATHS.push_back(path);
 		return *this;
 	}
 
-	//Add object in queue
-	ThreadController& push(std::pair<T,std::string>algorithm) {
+	//Add algorithm and path in queue
+	ThreadController& push(std::pair<T, std::string> algorithm) {
 		algVector.push_back(algorithm.first);
 		PATHS.push_back(algorithm.second);
 		return *this;
 	}
-		//Add object in queue
-	ThreadController& push(std::vector<std::pair<T,std::string>>data) {
-		for(auto i: data)
-		{
+
+	//Add object in queue
+	ThreadController& push(std::vector<std::pair<T, std::string>> data) {
+		for(auto i : data) {
 			algVector.push_back(i.first);
 			PATHS.push_back(i.second);
 		}
 		return *this;
 	}
 
-			//Add object in queue
-	ThreadController& push(std::vector<T>algorithms,std::vector<std::string>filenames) {
+	// Add algorithms and paths from vectors in queue
+	ThreadController& push(std::vector<T>algorithms, std::vector<std::string> filenames) {
 		for(auto i: algorithms)
-		{
 			algVector.push_back(i);
-		}
 
 		for(auto j: filenames)
-		{
 			PATHS.push_back(j);
-		}
+
 		return *this;
 	}
 
 	//Implementation of the algorithm
 	void start() {
-
 		for (bool& i : Finished)
 			i = false;
 
@@ -112,7 +109,6 @@ public:
 			});
 			worker.detach();
 		}
-
 		this->waitFinished();
 	}
 };
