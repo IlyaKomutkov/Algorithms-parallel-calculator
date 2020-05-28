@@ -1,6 +1,7 @@
 #include "KMeans.hpp"
-
+#include <algorithm>
 #include <cmath>
+
 
 
 
@@ -20,7 +21,7 @@ void const KMeans::start(std::string PATH){
 	// 1 //
 	// random initialization (k-firsts)
 
-	centroindsInitializer_->initCentroids(centroids, data_);
+	centroindsInitializer_->initCentroids(centroids, data_, metrics_);
 	std::cout << centroids;
 
 	bool condition = true;
