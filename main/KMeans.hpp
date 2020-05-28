@@ -53,6 +53,11 @@ public:
     	return *this;
     }
 
+    KMeansBuilder& setCentroindsInitializer(CentroindsInitializer* centroindsInitializer, Metrics* metrics) {
+        centroindsInitializer_ = centroindsInitializer;
+        return *this;
+    }
+
     KMeansBuilder&  setK(int k){
     	k_ = k;
     	return *this;
