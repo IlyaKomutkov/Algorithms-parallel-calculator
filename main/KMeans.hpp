@@ -5,14 +5,10 @@
 
 #include "KMetrics.hpp"
 #include "InitCentroids.hpp"
-/*long double distance1(std::valarray<long double>, 
-                           std::valarray<long double>);*/
-
-
 
 class KMeans{
 private:
-    int k_;                     // clusters number
+    size_t k_;                     // clusters number
     long double eps_;  			//accuracy
     Matrix<long double> data_;
 
@@ -20,7 +16,7 @@ private:
     CentroindsInitializer* centroindsInitializer_;
 public:
 	class KMeansBuilder;
-    KMeans(int, long double, Matrix<long double>, Metrics*, CentroindsInitializer*);
+    KMeans(size_t, long double, Matrix<long double>, Metrics*, CentroindsInitializer*);
     void const start(std::string PATH);
     
 };
@@ -28,7 +24,7 @@ public:
 
 class KMeans::KMeansBuilder {
 private:
-    int k_ = 1;                 // clusters number
+    size_t k_ = 1;                 // clusters number
     long double eps_ = 0.1;  			//accuracy
     Matrix<long double> data_ = Matrix<long double>(2, 2);
 
