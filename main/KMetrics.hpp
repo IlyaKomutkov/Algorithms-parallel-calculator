@@ -9,7 +9,7 @@ public:
 };
 
 
-//Manhattan distance
+// Manhattan distance
 class ManhattanDist : public Metrics
 {
 public:
@@ -17,14 +17,14 @@ public:
 };
 
 
-//Chebyshev distance
+// Chebyshev distance
 class ChebyshevDist : public Metrics {
 public:
 	long double distance(std::valarray<long double> v1, std::valarray<long double> v2) override;
 };
 
 
-//Minkowski distance
+// Minkowski distance
 class MinkowskiDist : public Metrics {
 	long double power_ = 1;
 public:
@@ -33,7 +33,7 @@ public:
 };
 
 
-//Euclid distance
+// Euclid distance
 class EuclidDist : public Metrics {
 public:
 	long double distance(std::valarray<long double> v1, std::valarray<long double> v2) override;

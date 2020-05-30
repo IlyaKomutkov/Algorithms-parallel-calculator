@@ -46,13 +46,12 @@ std::valarray<long double> ThreeBodiesODE::operator()(long double t, std::valarr
 TwoBodiesODE::TwoBodiesODE(std::valarray<long double> GM) { gm = GM; }
 
 std::valarray<long double> TwoBodiesODE::operator()(long double t, std::valarray<long double> s0) {
-
     std::valarray<long double> ds(s0.size());
-    ds[0] = s0[3];//dx
-    ds[1] = s0[4];//dy
-    ds[2] = s0[5];//dz
-    ds[3] = -gm[0] * s0[0] / pow(pow(s0[0], 2) + pow(s0[1], 2) + pow(s0[2], 2), 1.5);//dv_x
-    ds[4] = -gm[0] * s0[1] / pow(pow(s0[0], 2) + pow(s0[1], 2) + pow(s0[2], 2), 1.5);//dv_y
-    ds[5] = -gm[0] * s0[2] / pow(pow(s0[0], 2) + pow(s0[1], 2) + pow(s0[2], 2), 1.5);//dv_z
+    ds[0] = s0[3];  // dx
+    ds[1] = s0[4];  // dy
+    ds[2] = s0[5];  // dz
+    ds[3] = -gm[0] * s0[0] / pow(pow(s0[0], 2) + pow(s0[1], 2) + pow(s0[2], 2), 1.5);   // dv_x
+    ds[4] = -gm[0] * s0[1] / pow(pow(s0[0], 2) + pow(s0[1], 2) + pow(s0[2], 2), 1.5);   // dv_y
+    ds[5] = -gm[0] * s0[2] / pow(pow(s0[0], 2) + pow(s0[1], 2) + pow(s0[2], 2), 1.5);   // dv_z
     return ds;
 }

@@ -1,14 +1,16 @@
 #pragma once
 
+
 #include "RK.hpp"
 #include "KMeans.hpp"
 
+
+// use this interface to adjust new algorithm
 class Algorithm {
 public:
 	virtual const void start(std::string resultPATH) = 0;
 	virtual ~Algorithm() = default;
 };
-
 
 
 template<class ODE>
@@ -21,7 +23,6 @@ private:
 	std::valarray<long double> s0_;
 	size_t n_;
 	bool bMain_;
-
 public:
 	RKAlgorithm(RKIntegrator<ODE> rkIntegrator,\
 				long double t0, std::valarray<long double> s0,\

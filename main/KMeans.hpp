@@ -2,14 +2,14 @@
 
 
 #include "linalg.hpp"
-
 #include "KMetrics.hpp"
 #include "InitCentroids.hpp"
+
 
 class KMeans{
 private:
     size_t k_;                     // clusters number
-    long double eps_;  			//accuracy
+    long double eps_;  			   //accuracy
     Matrix<long double> data_;
 
     Metrics* metrics_;
@@ -24,7 +24,7 @@ public:
 
 class KMeans::KMeansBuilder {
 private:
-    size_t k_ = 1;                 // clusters number
+    size_t k_ = 1;                      // clusters number
     long double eps_ = 0.1;  			//accuracy
     Matrix<long double> data_ = Matrix<long double>(2, 2);
 

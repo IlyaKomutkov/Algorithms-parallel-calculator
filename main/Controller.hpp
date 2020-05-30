@@ -11,7 +11,7 @@
 
 template <size_t N, class T>
 class ThreadController {
-	/* This class is using for parallel calculations */
+	/*  class for parallel calculations */
 
 	std::mutex mutex1, mutex2;
 	std::condition_variable done;
@@ -20,10 +20,9 @@ class ThreadController {
 	std::deque<std::string> PATHS;
 	bool Finished[N];
 
-	//Make calculations in thread that got as parametr of function
+	// Make calculations in a thread that got as param of function
 	void threadTask(size_t id){
 
-		
 		while (true) {
 			std::unique_lock<std::mutex> lock(mutex1);
 			if (algVector.empty()) {
@@ -55,31 +54,29 @@ class ThreadController {
 		}
 	}
 	
-
-		void waitFinished() 
-		{ 
+	void waitFinished() { 
 		std::unique_lock<std::mutex> lock(mutex2); 
 			done.wait(lock, [this] { 
 				return std::all_of(Finished, Finished + N, [](bool e) { return e; }); 
 		}); 
-		}
+	}
 
 public:
-	//Add object in queue
+	ThreadController() {}
+
 	ThreadController& push(T algorithm, const std::string path) {
 		algVector.push_back(algorithm);
 		PATHS.push_back(path);
 		return *this;
 	}
 
-	//Add object in queue
-	ThreadController& push(std::pair<T,std::string>algorithm) {
+	ThreadController& push(std::pair<T, std::string>algorithm) {
 		algVector.push_back(algorithm.first);
 		PATHS.push_back(algorithm.second);
 		return *this;
 	}
-		//Add object in queue
-	ThreadController& push(std::vector<std::pair<T,std::string>>data) {
+
+	ThreadController& push(std::vector<std::pair<T, std::string>>data) {
 		for(auto i: data){
 			algVector.push_back(i.first);
 			PATHS.push_back(i.second);
@@ -87,7 +84,6 @@ public:
 		return *this;
 	}
 
-	//Add object in queue
 	ThreadController& push(std::vector<T>algorithms, std::vector<std::string>filenames) {
 		for(auto i: algorithms)
 			algVector.push_back(i);
@@ -96,9 +92,7 @@ public:
 		return *this;
 	}
 
-	//Implementation of the algorithm
 	void start() {
-
 		std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18)\
 		 << ' ' << std::setw(24) << "Directory" << std::endl;
 
