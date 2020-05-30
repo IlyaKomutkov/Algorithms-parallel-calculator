@@ -2,8 +2,12 @@
 
 #include "linalg.hpp"
 
+class ODE {
+public:
+	virtual std::valarray<long double> operator()(long double t, std::valarray<long double> s) = 0;
+};
 
-class LVOde{
+class LVOde:public ODE{
 private:
 	long double a, b, c, d;	// L-V constants
 public:

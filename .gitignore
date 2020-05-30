@@ -31,6 +31,11 @@
 *.out
 *.app
 
+# programmes files for windows
+
+.idea
+boost.1.72.0.0
+.vs
 /.vs/cpp_microproject_2020/v16/Browse.VC.db
 /.vs/cpp_microproject_2020/v16/Browse.VC.opendb
 /.vs/ProjectSettings.json
@@ -57,7 +62,3 @@
 /main/dim12.txt
 /main/dim11.txt
 /main/dim10.txt
-
-
-.idea
-
