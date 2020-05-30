@@ -98,7 +98,7 @@ public:
 
 	//Implementation of the algorithm
 	void start() {
-
+		std::cout.setf(std::ios::left);
 		std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18)\
 		 << ' ' << std::setw(24) << "Directory" << std::endl;
 
