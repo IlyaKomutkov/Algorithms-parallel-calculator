@@ -87,8 +87,8 @@ public:
 		return *this;
 	}
 
-			//Add object in queue
-	ThreadController& push(std::vector<T>algorithms,std::vector<std::string>filenames) {
+	//Add object in queue
+	ThreadController& push(std::vector<T>algorithms, std::vector<std::string>filenames) {
 		for(auto i: algorithms)
 			algVector.push_back(i);
 		for(auto j: filenames)

@@ -1,14 +1,12 @@
 #include "Algorithm.hpp"
 #include "Controller.hpp"
-// #include "testingFiles/ThreadTesting.hpp"
 
-
-int main(){
+void startKMeans(){
 
 	std::string pathToData = "KMeans/datasets/test.csv";
 
-
-	KMeansAlgorithm kmRandomEuclid = KMeansAlgorithm(
+	// all kmeans objects
+	KMeansAlgorithm kmRandomEuclid = 	KMeansAlgorithm(
 		KMeans::KMeansBuilder{}\
 		.setCentroindsInitializer(new RandomCentroindsInitializer())\
 		.setMetrics(new EuclidDist)\
@@ -36,7 +34,6 @@ int main(){
 		.setData({pathToData})\
 		.setK(8)\
 		.build());
-
 	KMeansAlgorithm kmKFirstMinkowski = KMeansAlgorithm(
 		KMeans::KMeansBuilder{}\
 		.setCentroindsInitializer(new KFirstCentroindsInitializer())\
@@ -58,14 +55,13 @@ int main(){
 		.setData({pathToData})\
 		.setK(8)\
 		.build());
-	KMeansAlgorithm kmKFirstEuclid = KMeansAlgorithm(
+	KMeansAlgorithm kmKFirstEuclid = 	KMeansAlgorithm(
 		KMeans::KMeansBuilder{}\
 		.setCentroindsInitializer(new KFirstCentroindsInitializer())\
 		.setMetrics(new EuclidDist)\
 		.setData({pathToData})\
 		.setK(8)\
 		.build());
-
 	KMeansAlgorithm kmLargestMinkowski = KMeansAlgorithm(
 		KMeans::KMeansBuilder{}\
 		.setCentroindsInitializer(new LargestCentroindsInitializer())\
@@ -87,7 +83,7 @@ int main(){
 		.setData({pathToData})\
 		.setK(8)\
 		.build());
-	KMeansAlgorithm kmLargestEuclid = KMeansAlgorithm(
+	KMeansAlgorithm kmLargestEuclid = 	KMeansAlgorithm(
 		KMeans::KMeansBuilder{}\
 		.setCentroindsInitializer(new LargestCentroindsInitializer())\
 		.setMetrics(new EuclidDist)\
@@ -95,6 +91,7 @@ int main(){
 		.setK(8)\
 		.build());
 	
+	// our algorithms
 	std::vector<Algorithm*> kmeansAlgorithms 
 	{ 
 		&kmRandomEuclid, &kmRandomManhattan, &kmRandomChebyshev, &kmRandomMinkowski,\
@@ -102,6 +99,7 @@ int main(){
 		&kmLargestMinkowski, &kmLargestChebyshev, &kmLargestManhattan, &kmLargestEuclid 
 	};
 
+	// target paths
 	std::vector<std::string> resulsPATHS
 	{
 		"kmRandomEuclid.csv", 	"kmRandomManhattan.csv", "kmRandomChebyshev.csv", "kmRandomMinkowski.csv",\
@@ -109,12 +107,11 @@ int main(){
 		"kmLargestMinkowski.csv", "kmLargestChebyshev.csv", "kmLargestManhattan.csv", "kmLargestEuclid.csv"\
 	};
 
+	// add directory
 	std::string resultDir = "KMeans/results/";
 	for (int i = 0; i < resulsPATHS.size(); ++i)
 		resulsPATHS[i] = resultDir + resulsPATHS[i];
 
 	ThreadController<8, Algorithm*> controller;
-  	controller.push(kmeansAlgorithms, resulsPATHS).start();
-
-	return 0;
+  	controller.push(kmeansAlgorithm, resulsPATHS).start();
 }

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../Algorithm.hpp"
 #include"../Controller.hpp"
 
