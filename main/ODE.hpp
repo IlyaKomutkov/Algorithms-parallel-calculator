@@ -13,6 +13,7 @@ public:
 	std::valarray<long double> operator()(long double, std::valarray<long double>);
 };
 
+
 class TwoBodiesODE :public ODE {
 private:
 	std::valarray<long double> gm ;
