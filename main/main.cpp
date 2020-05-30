@@ -1,120 +1,52 @@
 #include "Algorithm.hpp"
-#include "Controller.hpp"
-#include "testingFiles/ThreadTesting.hpp"
 
 
 int main(){
 
-	std::string pathToData = "KMeans/datasets/test.csv";
+    /* RKINtegrator algorithm */
+
+	TwoBodiesODE ode;
+	// define   RK5(4)7FC from Dormand and Prince method
+	RKMethod method(
+		"Butchers/matrixC.csv",
+		{ 0, 0.2, 0.3, 0.46153846153846153846, 0.66666666666666666666666667, 1, 1 },
+		{ 0.08101851851851851, 0, 0.58407201264344, -0.3373133975812547, 0.5752840909090909, 0.0969387755102, 0 },
+		{ 0.10185185185185, 0, 0.429464715179, 0.103788737717309, 0.46022727272727272727272727, 0.087244897959183673469, 0.025 }
+	);
+	// define our Integrator with TwoBodiesode and method
+	RKIntegrator<TwoBodiesODE> rkIntegrator(&ode, &method);
+	long double h = 100;			// step
+	size_t n = 1000;	 			// number of steps
+	std::valarray<long double> s0	// s0 vector-condition
+	{ 6871, 0, 0, 0, (7.616556585247121 + 10.771437621438588) / 2, 0 };
 
 
-	KMeansAlgorithm kmRandomEuclid = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new RandomCentroindsInitializer())\
-		.setMetrics(new EuclidDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmRandomManhattan = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new RandomCentroindsInitializer())\
-		.setMetrics(new ManhattanDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmRandomChebyshev = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new RandomCentroindsInitializer())\
-		.setMetrics(new ChebyshevDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmRandomMinkowski = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new RandomCentroindsInitializer())\
-		.setMetrics(new MinkowskiDist(4))\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
+	auto algorithm1 = RKAlgorithm<TwoBodiesODE>(rkIntegrator, 0, s0, h, n);
 
-	KMeansAlgorithm kmKFirstMinkowski = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new KFirstCentroindsInitializer())\
-		.setMetrics(new MinkowskiDist(4))\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmKFirstChebyshev = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new KFirstCentroindsInitializer())\
-		.setMetrics(new ChebyshevDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmKFirstManhattan = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new KFirstCentroindsInitializer())\
-		.setMetrics(new ManhattanDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmKFirstEuclid = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new KFirstCentroindsInitializer())\
-		.setMetrics(new EuclidDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
 
-	KMeansAlgorithm kmLargestMinkowski = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new LargestCentroindsInitializer())\
-		.setMetrics(new MinkowskiDist(4))\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmLargestChebyshev = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new LargestCentroindsInitializer())\
-		.setMetrics(new ChebyshevDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmLargestManhattan = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new LargestCentroindsInitializer())\
-		.setMetrics(new ManhattanDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	KMeansAlgorithm kmLargestEuclid = KMeansAlgorithm(
-		KMeans::KMeansBuilder{}\
-		.setCentroindsInitializer(new LargestCentroindsInitializer())\
-		.setMetrics(new EuclidDist)\
-		.setData({pathToData})\
-		.setK(8)\
-		.build());
-	
-	std::vector<Algorithm*> kmeansAlgorithms 
-	{ 
-		&kmRandomEuclid, &kmRandomManhattan, &kmRandomChebyshev, &kmRandomMinkowski,\
-		&kmKFirstMinkowski, &kmKFirstChebyshev, &kmKFirstManhattan, &kmKFirstEuclid,\
-		&kmLargestMinkowski, &kmLargestChebyshev, &kmLargestManhattan, &kmLargestEuclid 
-	};
 
-	std::vector<std::string> resulsPATHS
-	{
-		"kmRandomEuclid.csv", 	"kmRandomManhattan.csv", "kmRandomChebyshev.csv", "kmRandomMinkowski.csv",\
-		"kmKFirstMinkowski.csv", "kmKFirstChebyshev.csv", "kmKFirstManhattan.csv", "kmKFirstEuclid.csv",\
-		"kmLargestMinkowski.csv", "kmLargestChebyshev.csv", "kmLargestManhattan.csv", "kmLargestEuclid.csv"\
-	};
 
-	std::string resultDir = "KMeans/results/";
-	for (int i = 0; i < resulsPATHS.size(); ++i)
-		resulsPATHS[i] = resultDir + resulsPATHS[i];
+	/* KMeans algorithm */
 
-	ThreadController<8, Algorithm*> controller;
-  	controller.push(kmeansAlgorithms, resulsPATHS).start();
+	KMeans km(3, 0.1, {"datasets/allUsers.csv"});
+	km.start("test/test0.csv");
+
+	auto algorithm2 = KMeansAlgorithm(km);
+
+
+	//	//														// //
+//			//												//			//
+				//										//				//
+//					// //	//	//	//	//	//	//	//
+	std::vector<Algorithm*> algorithms {&algorithm1, &algorithm2};
+	int i = 0;
+	for (const auto algorithm : algorithms) {
+		algorithm->start("test/test" +  std::to_string(i++) + ".csv");
+		}			//	//	//	//	//	//	//	//	//	
+//				//										//				//
+//			//												//			//
+	//	//														// //
+
 
 	return 0;
 }
