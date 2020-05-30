@@ -1,6 +1,6 @@
 #include "Algorithm.hpp"
 #include "Controller.hpp"
-// #include "testingFiles/ThreadTesting.hpp"
+#include "testingFiles/ThreadTesting.hpp"
 
 
 int main(){
