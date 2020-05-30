@@ -115,3 +115,56 @@ void startKMeans(){
 	ThreadController<8, Algorithm*> controller;
   	controller.push(kmeansAlgorithm, resulsPATHS).start();
 }
+
+
+void oneStrMain(){
+	
+	ThreadController<8, Algorithm*> controller;
+  	controller.push(
+  	{ 
+		new KMeansAlgorithm( KMeans::KMeansBuilder{}\
+							.setCentroindsInitializer(new RandomCentroindsInitializer())\
+							.setMetrics(new EuclidDist)\
+							.setData({pathToData})\
+							.setK(8)\
+							.build()),
+		new KMeansAlgorithm( KMeans::KMeansBuilder{}\
+							.setCentroindsInitializer(new RandomCentroindsInitializer())\
+							.setMetrics(new ManhattanDist)\
+							.setData({pathToData})\
+							.setK(8)\
+							.build()), 
+		new KMeansAlgorithm( KMeans::KMeansBuilder{}\
+							.setCentroindsInitializer(new RandomCentroindsInitializer())\
+							.setMetrics(new ChebyshevDist)\
+							.setData({pathToData})\
+							.setK(8)\
+							.build()), 
+		new KMeansAlgorithm( KMeans::KMeansBuilder{}\
+							.setCentroindsInitializer(new RandomCentroindsInitializer())\
+							.setMetrics(new MinkowskiDist(4))\
+							.setData({pathToData})\
+							.setK(8)\
+							.build()),\
+	}, 
+  	{
+		"kmRandomEuclid.csv", 	"kmRandomManhattan.csv", "kmRandomChebyshev.csv", "kmRandomMinkowski.csv"
+	}
+	).start();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
