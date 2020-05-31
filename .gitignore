@@ -34,7 +34,6 @@
 *.out
 *.app
 project
-main
 test
 
 
