@@ -1,3 +1,6 @@
+# jupyter notebook objects
+.ipynb_checkpoints
+
 # Prerequisites
 *.d
 
@@ -30,16 +33,17 @@
 *.exe
 *.out
 *.app
+project
+main
+test
+
+
+
 
 # programmes files for windows
-
 .idea
 boost.1.72.0.0
 .vs
-/.vs/cpp_microproject_2020/v16/Browse.VC.db
-/.vs/cpp_microproject_2020/v16/Browse.VC.opendb
-/.vs/ProjectSettings.json
-/.vs/slnx.sqlite
 *.json
 /out/build/x64-Debug/CMakeFiles/3.16.19112601-MSVC_2/CompilerIdC/CMakeCCompilerId.c
 /out/build/x64-Debug/VSInheritEnvironments.txt
@@ -56,9 +60,3 @@ boost.1.72.0.0
 /out/build/x64-Debug/CMakeFiles/3.16.19112601-MSVC_2/CMakeCXXCompiler.cmake
 /out/build/x64-Debug/CMakeFiles/3.16.19112601-MSVC_2/CMakeCCompiler.cmake
 /out/build/x64-Debug/CMakeCache.txt
-/main/dim15.txt
-/main/dim14.txt
-/main/dim13.txt
-/main/dim12.txt
-/main/dim11.txt
-/main/dim10.txt
