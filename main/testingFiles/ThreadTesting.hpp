@@ -18,8 +18,8 @@ public:
 
 }; 
 
-	void Test4Algorithms4Threads();
+void Test4Algorithms4Threads();
 
-	void Test2Algorithms4Threads();
+void Test2Algorithms4Threads();
 
-	void Test4Algorithms2Threads();
+void Test4Algorithms2Threads();

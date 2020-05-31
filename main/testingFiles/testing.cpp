@@ -60,7 +60,6 @@ void TestingSystem::testVector(){
 	vecToCsv(v3, "vec3.csv");
 }
 
-
 void TestingSystem::testMatrix(){
 
 	Matrix<double> m1("matrix1.csv");

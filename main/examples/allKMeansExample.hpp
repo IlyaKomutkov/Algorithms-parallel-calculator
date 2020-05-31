@@ -100,7 +100,7 @@ void startKMeans(){
 	};
 
 	// target paths
-	std::vector<std::string> resulsPATHS
+	std::vector<std::string> resultsPATHS
 	{
 		"kmRandomEuclid.csv", 	"kmRandomManhattan.csv", "kmRandomChebyshev.csv", "kmRandomMinkowski.csv",\
 		"kmKFirstMinkowski.csv", "kmKFirstChebyshev.csv", "kmKFirstManhattan.csv", "kmKFirstEuclid.csv",\
@@ -109,9 +109,9 @@ void startKMeans(){
 
 	// add directory
 	std::string resultDir = "KMeans/results/";
-	for (int i = 0; i < resulsPATHS.size(); ++i)
-		resulsPATHS[i] = resultDir + resulsPATHS[i];
+	for (int i = 0; i < resultsPATHS.size(); ++i)
+		resultsPATHS[i] = resultDir + resultsPATHS[i];
 
 	ThreadController<8, Algorithm*> controller;
-  	controller.push(kmeansAlgorithm, resulsPATHS).start();
+  	controller.push(kmeansAlgorithm, resultsPATHS).start();
 }
