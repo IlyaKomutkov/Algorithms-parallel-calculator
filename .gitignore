@@ -60,3 +60,4 @@ boost.1.72.0.0
 /out/build/x64-Debug/CMakeFiles/3.16.19112601-MSVC_2/CMakeCXXCompiler.cmake
 /out/build/x64-Debug/CMakeFiles/3.16.19112601-MSVC_2/CMakeCCompiler.cmake
 /out/build/x64-Debug/CMakeCache.txt
+*.zip
