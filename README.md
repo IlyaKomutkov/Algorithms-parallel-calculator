@@ -4,15 +4,15 @@
 
 This library provides a comfortable structure and useful classes for making parrellel comuting of any sort of algorithms.
 
-1. **You can easily get results for algorithm with different parametres and chose the best.
+1. **You can easily get results for algorithm with different parametres and chose the best.**
 
 ![image](https://github.com/likeblood/cpp_microproject_2020/blob/master/main/KMeans/Results/kmeansResults.png)
 
-2. **You can make a time-consuming calculations at once.
+2. **You can make a time-consuming calculations at once.**
 
 ![image](https://github.com/likeblood/cpp_microproject_2020/blob/master/main/RK/Results/rkResults.png)
 
-3. **Add own algorithms and use our interface to make them parallel.
+3. **Add own algorithms and use our interface to make them parallel.**
 
 
 ## Requirements
@@ -75,5 +75,5 @@ where directory shows where are results of computations.
 
  - [Documentation](https://github.com/likeblood/cpp_microproject_2020/wiki)
 
- - [More examles](https://github.com/likeblood/cpp_microproject_2020/tree/master/main/examples)
+ - [More examples](https://github.com/likeblood/cpp_microproject_2020/tree/master/main/examples)
 
