@@ -70,7 +70,7 @@ public:
 		return *this;
 	}
 
-	ThreadController& push(std::pair<T, std::string>algorithm) {
+	ThreadController& push(std::pair<T, std::string> algorithm) {
 		algVector.push_back(algorithm.first);
 		PATHS.push_back(algorithm.second);
 		return *this;
@@ -93,7 +93,7 @@ public:
 	}
 
 	void start() {
-		
+
 		std::cout.setf(std::ios::left);
 		std::cout << std::setw(7) << ' ' << std::setw(14) << "Thread id" << '|' << std::setw(18)\
 		 << ' ' << std::setw(24) << "Directory" << std::endl;

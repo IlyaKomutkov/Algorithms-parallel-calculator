@@ -27,7 +27,7 @@ public:
 	RKAlgorithm(RKIntegrator<ODE> rkIntegrator,\
 				long double t0, std::valarray<long double> s0,\
 				long double h, size_t n, bool bMain = 1) : 
-	rkIntegrator_(rkIntegrator), t0_(t0), h_(h), s0_(s0), n_(n), bMain_(bMain) {};
+	rkIntegrator_(rkIntegrator), t0_(t0), s0_(s0), h_(h), n_(n), bMain_(bMain) {};
 
 	void const start(std::string resultPATH)  override{
 		Matrix<long double> result = rkIntegrator_.nSteps(t0_, s0_, h_, n_);
