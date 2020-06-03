@@ -14,6 +14,8 @@ This library provides a comfortable structure and useful classes for making parr
 
 3. **Add own algorithms and use our interface to make them parallel.**
 
+![image](https://github.com/likeblood/Algorithms-parallel-calculator/blob/master/main/testingFiles/time.png)
+
 
 ## Requirements
 
